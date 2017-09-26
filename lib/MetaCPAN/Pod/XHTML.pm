@@ -14,6 +14,27 @@ with 'Pod::Simple::Role::XHTML::WithHighlightConfig';
 
 has link_mappings => ( is => 'rw' );
 
+after BUILD => sub {
+    $_[0]->accept_targets_as_html('image');
+};
+
+after start_for => sub {
+    my ( $self, $item ) = @_;
+    if ( $item->{target_matching} eq 'image' ) {
+        $self->{scratch} = '';
+    }
+};
+
+before end_for => sub {
+    my ( $self, $item ) = @_;
+    if ( $self->{__region_targets}[-1] eq 'image' ) {
+        my $img = $self->{scratch};
+        s/\A\s+//, s/\s+\z// for $img;
+        $self->{scratch}
+            = '<img src="' . $self->encode_entities($img) . '" />';
+    }
+};
+
 sub resolve_pod_page_link {
     my ( $self, $module, $section ) = @_;
     return undef
