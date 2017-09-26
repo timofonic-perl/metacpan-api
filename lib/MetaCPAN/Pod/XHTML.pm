@@ -1,15 +1,18 @@
 package MetaCPAN::Pod::XHTML;
-
 use strict;
 use warnings;
+
+use HTML::Entities qw(decode_entities);
+use Moo;
+use namespace::clean;
 
 # Keep the coding style of Pod::Simple for consistency and performance.
 # Pod::Simple::XHTML expects you to subclass and then override methods.
 
-use parent 'Pod::Simple::XHTML';
-use HTML::Entities qw(decode_entities);
+extends 'Pod::Simple::XHTML';
+with 'Pod::Simple::Role::XHTML::WithHighlightConfig';
 
-__PACKAGE__->_accessorize('link_mappings');
+has link_mappings => ( is => 'rw' );
 
 sub resolve_pod_page_link {
     my ( $self, $module, $section ) = @_;
