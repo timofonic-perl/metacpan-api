@@ -36,7 +36,7 @@ addons:
     - postgresql-server-dev-all
 
 before_install:
-  - sudo mkdir -p /etc/elasticsearch/scripts/ && sudo mkdir /tmp/es
+  - sudo mkdir -p /etc/elasticsearch/scripts/ && sudo mkdir /tmp/es && sudo chmod 777 /tmp/es
 
   - sudo curl -O -L https://github.com/metacpan/metacpan-puppet/raw/master/modules/metacpan_elasticsearch/files/etc/scripts/prefer_shorter_module_names_100.groovy > /tmp/es/prefer_shorter_module_names_100.groovy
 
