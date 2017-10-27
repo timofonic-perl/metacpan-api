@@ -46,10 +46,10 @@ ok( $search->_not_rogue, '_not_rogue' );
 #         'lib/Pod/Pm/NoPod.pod', 'second expanded result is expected' );
 # }
 
-# {
-#     my $results = $search->search_web('author:Mo');
-#     is( @{ $results->{results} }, 5, '5 results on author search' );
-# }
+{
+    my $results = $search->search_web('author:Mo');
+    is( @{ $results->{results} }, 5, '5 results on author search' );
+}
 
 # {
 #     my $long_form  = $search->search_web('distribution:Pod-Pm');
